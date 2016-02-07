@@ -8,7 +8,8 @@ html
     title #{title} - Capital Gains
     link(rel='stylesheet', href='/css/main.css')
   body
-    include partials/header
+    if user
+      include partials/header
 
     .container
       include partials/flash
