@@ -10,6 +10,7 @@ var session = require('express-session');
 var express = require('express');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/hack');
 
 var app = express();
 app.use(session({
@@ -62,7 +63,7 @@ exports.postLogin = function(req, res, next) {
     }
 
     MongoClient.connect(mongodbUrl, function(err, db){
-           var collection = db.collection("users");
+           var collection = db.collection("susers");
 
            console.log({email: req.body.email, password: req.body.password});
 
@@ -150,7 +151,8 @@ exports.postSignup = function(req, res, next) {
     console.log(user);
 
     user.save(function(err){
-        if(err) return handleError(err);
+        //assert(null, err);
+        console.log(err);
     });
 
     res.redirect('/login');
