@@ -11,7 +11,7 @@
         | Cash Catch
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        if !borrower
+        if !user.borrower
           li(class=title=='Discover'?'active':undefined)
             a(href='/discover') Discover
           li(class=title=='Manage'?'active':undefined)
