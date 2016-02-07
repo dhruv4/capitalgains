@@ -6,9 +6,9 @@ block content
 			div(class='panel-heading' data-toggle='modal' data-target='#myModal')
 				div
 					h4(class='panel-title' style='display:inline-block')
-						proj.name
+						proj.title
 					h5(class='panel-title' style='display:inline-block')
-						proj.mny
+						proj.money
 			div(class='panel-body')
 				proj.description
 		else
@@ -21,12 +21,12 @@ block content
 						button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
 							&times;
 						h2(class='modal-title' id='myModalLabel' style='display:inline-block')
-							project.name
+							proj.title
 						h4(style='display:inline-block alignment:right')
-							$: project.mny
+							$: proj.mny
 					div(class='modal-body')
 						h6
-							project.description
+							proj.description
 					div(class='modal-footer')
 						a(href='#' class='btn btn-success btn-simple')
 							Pay Back
