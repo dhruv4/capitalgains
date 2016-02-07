@@ -4,13 +4,10 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
-var MongoClient = require('mongodb').MongoClient;
-var mongodbUrl = "mongodb://localhost:27017/hack";
 var session = require('express-session');
 var express = require('express');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/hack');
 
 var app = express();
 app.use(session({
@@ -23,16 +20,7 @@ app.use(session({
   })
 }));
 
-var userSchema = new mongoose.Schema({
-    email: {type: String, unique: true, lowercase: true},
-    password : String,
-    name : String,
-    lender : Boolean,
-    borrower : Boolean,
-    bank : String,
-    projects : [Number]
-});
-var sUser = mongoose.model('sUser', userSchema);
+
 
 /**
 * GET /login
@@ -51,20 +39,8 @@ exports.getLogin = function(req, res) {
 * POST /login
 * Sign in using email and password.
 */
-exports.postLogin = function(req, res, next) {
-    req.assert('email', 'Email is not valid').isEmail();
-    req.assert('password', 'Password cannot be blank').notEmpty();
 
-    var errors = req.validationErrors();
-
-    if (errors) {
-        req.flash('errors', errors);
-        return res.redirect('/login');
-    }
-
-    MongoClient.connect(mongodbUrl, function(err, db){
-           var collection = db.collection("susers");
-
+<<<<<<< HEAD
            console.log({email: req.body.email, password: req.body.password});
 
            collection.find({
@@ -91,6 +67,8 @@ exports.postLogin = function(req, res, next) {
        });
 
 };
+=======
+>>>>>>> 53c3beb2603a10fec4ce7c4b2e25d0638a64b4cb
 
 /**
 * GET /logout
@@ -113,6 +91,8 @@ exports.getSignup = function(req, res) {
         title: 'Create Account'
     });
 };
+
+
 
 /**
 * POST /signup
