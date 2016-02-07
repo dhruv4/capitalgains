@@ -18,6 +18,13 @@ block content
         .col-sm-7
           input.form-control(type='bank', name='bank', id='bank', placeholder='Bank', autofocus)
     .form-group
+        label.col-sm-3.control-label(for='lender') Lender
+        .col-sm-1
+            input.form-control(type='checkbox', name='lender')
+        label.col-sm-1.control-label(for='borrower') Borrower
+        .col-sm-1
+            input.form-control(type='checkbox', name='borrower')
+    .form-group
       label.col-sm-3.control-label(for='password') Password
       .col-sm-7
         input.form-control(type='password', name='password', id='password', placeholder='Password')
