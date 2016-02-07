@@ -68,26 +68,26 @@ exports.postLogin = function(req, res, next) {
            console.log({email: req.body.email, password: req.body.password});
 
            collection.find({
-                            email: req.body.email,
-                            password: req.body.password
-                            }).count( function(err, count){
+                email: req.body.email,
+                password: req.body.password
+                }).count( function(err, count){
 
-                                console.log(count);
+                    console.log(count);
 
-                                if(count > 0){
-                                    req.flash('success', { msg: 'Success! You are logged in.' });
-                                    req.session.email = req.body.email;
-                                    res.redirect('/home');
-                                }
+                    if(count > 0){
+                        req.flash('success', { msg: 'Success! You are logged in.' });
+                        req.session.email = req.body.email;
+                        res.redirect('/home');
+                    }
 
-                                else {
-                                    req.flash('errors', { msg: 'Incorrect email/password'});
-                                    res.redirect('/login')
-                                }
+                    else {
+                        req.flash('errors', { msg: 'Incorrect email/password'});
+                        res.redirect('/login')
+                    }
 
-                                db.close();
-                            }
-                        );
+                    db.close();
+                }
+            );
        });
 
 };
