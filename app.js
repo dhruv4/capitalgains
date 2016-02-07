@@ -49,11 +49,19 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
-mongoose.connection.on('error', function() {
-  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-  process.exit(1);
-});
+ var MongoClient = require('mongodb').MongoClient;
+ var mongodbUrl = "mongodb://localhost:27017/myproject";
+
+ MongoClient.connect(mongodbUrl, function(err, db){
+ 		var collection = db.collection("users");
+
+ 		collection.insert({
+ 							username : "mary",
+ 							password : "chocolate"
+ 						});
+
+ 		db.close();
+ 	})
 
 /**
  * Express configuration.
