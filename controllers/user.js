@@ -6,6 +6,21 @@ var passport = require('passport');
 var User = require('../models/User');
 var MongoClient = require('mongodb').MongoClient;
 var mongodbUrl = "mongodb://localhost:27017/hack";
+var session = require('express-session');
+var express = require('express');
+var MongoStore = require('connect-mongo/es5')(session);
+
+var app = express();
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    url: process.env.MONGODB || process.env.MONGOLAB_URI,
+    autoReconnect: true
+  })
+}));
+
 /**
 * GET /login
 * Login page.
@@ -48,6 +63,7 @@ exports.postLogin = function(req, res, next) {
 
                                 if(count > 0){
                                     req.flash('success', { msg: 'Success! You are logged in.' });
+                                    req.session.email = req.body.email;
                                     res.redirect('/home');
                                 }
 
@@ -59,8 +75,6 @@ exports.postLogin = function(req, res, next) {
                                 db.close();
                             }
                         );
-
-
        });
 
 };
