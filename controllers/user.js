@@ -37,7 +37,10 @@ exports.postLogin = function(req, res, next) {
     MongoClient.connect(mongodbUrl, function(err, db){
            var collection = db.collection("users");
 
-           if(collection.find({email: req.body.email, password: req.body.password})){
+           if(collection.find(
+                    {email: req.body.email,
+                    password: req.body.password}
+                ).count() > 0){
                req.flash('success', { msg: 'Success! You are logged in.' });
                res.redirect('/home');
            } else {
@@ -46,7 +49,8 @@ exports.postLogin = function(req, res, next) {
            }
            db.close();
 
-       })
+       });
+
 };
 
 /**
