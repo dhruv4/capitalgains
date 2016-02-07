@@ -13,10 +13,10 @@ var userSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
-},*/
+    },*/
 
   bank: String,
-  projects : [ id: Number ],
+  projects: [ {id: Number} ],
 });
 
 /**
