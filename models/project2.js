@@ -17,10 +17,8 @@ var projectSchema = new mongoose.Schema({
 		remaining: Number
 	});
 
-var Project  = mongoose.model('Project', projectSchema);
+projectSchema.statics.addProject = function(ttle, bor, desc, mny, date, pkgName) {
 
-projectSchema.methods.addProject = function(ttle, bor, desc, mny, date, pkgName) {
-	
 	Project.create({
 		title : ttle,
 		borrower : bor,
@@ -28,7 +26,7 @@ projectSchema.methods.addProject = function(ttle, bor, desc, mny, date, pkgName)
 		stat : false,
 		money : mny,
 		dateStart : date,
-		approved : False,
+		approved : false,
 		dateLent : null,
 		payments : [],
 		packageName: pkgName,
@@ -39,7 +37,7 @@ projectSchema.methods.addProject = function(ttle, bor, desc, mny, date, pkgName)
 };
 
 projectSchema.methods.approveProject = function(id) {
-	Project.update({_id : id}, {approved : true, dateLent = new Date()}, function(err, results) {
+	Project.update({_id : id}, {approved : true, dateLent: Date.now()}, function(err, results) {
         		console.log(results);
 	        	callback();
 	});
@@ -49,15 +47,16 @@ projectSchema.methods.pay = function(id, amount) {
 
 	this.queryAmountOwed(db, function(err2, owed){
 		if(amount >= owed){
+			num = owed - amount;
 			Project.update({_id : id},
-				{$push : {payments : payments.push({new Date(), amount})},
-				$set : {remaining : owed - amount, stat : true}},
+				{$push : {payments : {date: Date.now(), amount: amount}},
+				$set : {remaining : num, stat : true}},
 				function(err, results) {
        					console.log(results);
 				});
 		} else {
 			Project.update({_id : id},
-				{$push : {payments : payments.push({new Date(), amount})},
+				{$push : {payments : {date : Date.now(), amount: amount}},
 				$set : {remaining : owed - amount}},
 				function(err, results) {
        					console.log(results);
@@ -67,7 +66,7 @@ projectSchema.methods.pay = function(id, amount) {
 };
 
 projectSchema.methods.queryAmountOwed = function(db, callback, id, amount, date) {
-	
+
 	Project.findOne({_id : id}, new function(err, proj){
 		assert.equal(null, err);
 		if(proj != null){
@@ -86,10 +85,16 @@ projectSchema.methods.queryAmountOwed = function(db, callback, id, amount, date)
 	});
 };
 
-projectSchema.methods.getProject(callback, id){
+projectSchema.statics.getProject = function(callback, id){
 
 	Project.findOne({_id : id}, function(err, proj){
 		assert.equal(null, err);
 		callback(err, proj);
 	});
 };
+
+Project  = mongoose.model('Project', projectSchema);
+
+
+Project.addProject("Weed", "pandit.rohan@gmail.com", "Selling pot to poor kids",
+    5000, new Date(), "1");

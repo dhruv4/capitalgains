@@ -27,17 +27,9 @@ var mongodbUrl = "mongodb://localhost:27017/hack";
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/hack');
 
-var userSchema = new mongoose.Schema({
-    email: {type: String, unique: true, lowercase: true},
-    password : String,
-    name : String,
-    lender : Boolean,
-    borrower : Boolean,
-    bank : String,
-    projects : [Number]
-});
+require('./models/User.js')
+require('./models/project2.js')
 
-var sUser = mongoose.model('sUser', userSchema);
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -115,6 +107,7 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
 
 
 /**
@@ -199,7 +192,17 @@ app.get('/home', function(req, res){
         if(user.lender){
             res.render('account/lender')
         } else {
-            res.render('account/borrower')
+
+            projects = [];
+
+            user.projects.forEach(function(projectId){
+                Project.getProject(function(err, proj){
+                    projects.append(proj);
+                }, projectId);
+            });
+            console.log(projects);
+
+            res.render('account/borrower', {user:user, projects:projects})
         }
     });
 });

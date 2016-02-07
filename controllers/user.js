@@ -40,36 +40,6 @@ exports.getLogin = function(req, res) {
 * Sign in using email and password.
 */
 
-<<<<<<< HEAD
-           console.log({email: req.body.email, password: req.body.password});
-
-           collection.find({
-                email: req.body.email,
-                password: req.body.password
-                }).count( function(err, count){
-
-                    console.log(count);
-
-                    if(count > 0){
-                        req.flash('success', { msg: 'Success! You are logged in.' });
-                        req.session.email = req.body.email;
-                        res.redirect('/home');
-                    }
-
-                    else {
-                        req.flash('errors', { msg: 'Incorrect email/password'});
-                        res.redirect('/login')
-                    }
-
-                    db.close();
-                }
-            );
-       });
-
-};
-=======
->>>>>>> 53c3beb2603a10fec4ce7c4b2e25d0638a64b4cb
-
 /**
 * GET /logout
 * Log out.
