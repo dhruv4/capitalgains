@@ -4,8 +4,24 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
-var MongoClient = require('mongodb').MongoClient;
-var mongodbUrl = "mongodb://localhost:27017/hack";
+var session = require('express-session');
+var express = require('express');
+var MongoStore = require('connect-mongo/es5')(session);
+var mongoose = require('mongoose');
+
+var app = express();
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    url: process.env.MONGODB || process.env.MONGOLAB_URI,
+    autoReconnect: true
+  })
+}));
+
+
+
 /**
 * GET /login
 * Login page.
@@ -23,35 +39,36 @@ exports.getLogin = function(req, res) {
 * POST /login
 * Sign in using email and password.
 */
-exports.postLogin = function(req, res, next) {
-    req.assert('email', 'Email is not valid').isEmail();
-    req.assert('password', 'Password cannot be blank').notEmpty();
 
-    var errors = req.validationErrors();
+<<<<<<< HEAD
+           console.log({email: req.body.email, password: req.body.password});
 
-    if (errors) {
-        req.flash('errors', errors);
-        return res.redirect('/login');
-    }
+           collection.find({
+                email: req.body.email,
+                password: req.body.password
+                }).count( function(err, count){
 
-    MongoClient.connect(mongodbUrl, function(err, db){
-           var collection = db.collection("users");
+                    console.log(count);
 
-           if(collection.find(
-                    {email: req.body.email,
-                    password: req.body.password}
-                ).count() > 0){
-               req.flash('success', { msg: 'Success! You are logged in.' });
-               res.redirect('/home');
-           } else {
-               req.flash('errors', { msg: 'Incorrect email/password'});
-               res.redirect('/login')
-           }
-           db.close();
+                    if(count > 0){
+                        req.flash('success', { msg: 'Success! You are logged in.' });
+                        req.session.email = req.body.email;
+                        res.redirect('/home');
+                    }
 
+                    else {
+                        req.flash('errors', { msg: 'Incorrect email/password'});
+                        res.redirect('/login')
+                    }
+
+                    db.close();
+                }
+            );
        });
 
 };
+=======
+>>>>>>> 53c3beb2603a10fec4ce7c4b2e25d0638a64b4cb
 
 /**
 * GET /logout
@@ -74,6 +91,8 @@ exports.getSignup = function(req, res) {
         title: 'Create Account'
     });
 };
+
+
 
 /**
 * POST /signup
@@ -99,23 +118,22 @@ exports.postSignup = function(req, res, next) {
     var lender_ = true ? req.body.lender == 'on' : false;
     var borrower_ = true ? req.body.borrower == 'on' : false;
 
-    var user = {
+    var user = new sUser({
         email: req.body.email,
         password: req.body.password,
-        linkedin: req.body.linkedin,
+        name: req.body.name,
         lender:  lender_,
         borrower:  borrower_,
-        bank: req.body.bank
-    };
+        bank: req.body.bank,
+        projects: []
+    });
 
     console.log(user);
 
-    MongoClient.connect(mongodbUrl, function(err, db){
-           var collection = db.collection("users");
-           collection.insert(user);
-
-           db.close();
-       })
+    user.save(function(err){
+        //assert(null, err);
+        console.log(err);
+    });
 
     res.redirect('/login');
 
