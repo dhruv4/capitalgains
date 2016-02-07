@@ -114,10 +114,11 @@ exports.postSignup = function(req, res, next) {
     var user = {
         email: req.body.email,
         password: req.body.password,
-        linkedin: req.body.linkedin,
+        name: req.body.name,
         lender:  lender_,
         borrower:  borrower_,
-        bank: req.body.bank
+        bank: req.body.bank,
+        projects: []
     };
 
     console.log(user);

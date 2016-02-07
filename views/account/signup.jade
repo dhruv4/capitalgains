@@ -6,17 +6,17 @@ block content
   form.form-horizontal(id='signup-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
-    .form-group
-        label.col-sm-3.control-label(for='linkedin') LinkedIn
+        label.col-sm-3.control-label(for='Name') Name
         .col-sm-7
-          input.form-control(type='linkedin', name='linkedin', id='linkedin', placeholder='LinkedIn', autofocus)
+          input.form-control(type='text', name='name', id='name', placeholder='Name', autofocus)
+    .form-group
+        label.col-sm-3.control-label(for='email') Email
+        .col-sm-7
+            input.form-control(type='text', name='email', id='email', placeholder='Email', autofocus)
     .form-group
         label.col-sm-3.control-label(for='bank') Bank
         .col-sm-7
-          input.form-control(type='bank', name='bank', id='bank', placeholder='Bank', autofocus)
+          input.form-control(type='text', name='bank', id='bank', placeholder='Bank Account Number', autofocus)
     .form-group
         label.col-sm-3.control-label(for='lender') Lender
         .col-sm-1
