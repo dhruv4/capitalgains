@@ -1,6 +1,22 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+require('./project2.js');
+
+var projectSchema = new mongoose.Schema({
+
+		title: String,
+		borrower: String,
+		description: String,
+		stat: Boolean,
+		money: Number,
+		dateStart: Date,
+		approved: Boolean,
+		dateLent: Date,
+		payments: [ {date: Date, amount: Number}],
+		packageName: String,
+		remaining: Number
+	});
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
@@ -10,7 +26,6 @@ var userSchema = new mongoose.Schema({
   projects: [Number]
 });
 
-var sUser = mongoose.model('User', userSchema);
 /**
  * Password hash middleware.
  */
@@ -32,6 +47,18 @@ userSchema.pre('save', function(next) {
 		});
 	});
 });
+
+userSchema.statics.addProject = function(email, id){
+
+    Project.update(
+        {email : email},
+        {$push: {projects : id}},
+        function(err, results){
+            //assert.equal(null, err);
+        });
+
+}
+
 
 /**
  * Helper method for validating user's password.
@@ -59,5 +86,10 @@ userSchema.methods.gravatar = function(size) {
 	return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
 };
 
-userSchema.methods.setName = function(name) {
-	
+sUser = mongoose.model('sUser', userSchema);
+
+
+sUser.addProject("pandit.rohan@gmail.com", 1);
+
+
+//userSchema.methods.setName = function(name) { }
