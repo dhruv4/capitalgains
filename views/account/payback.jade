@@ -8,5 +8,6 @@ block content
 	div(class='col-sm-3')
 		h6(style='display:inline-block')Payment Amount
 		div(class='form-group' style='display:inline-block')
-		input(type='text' value=' placeholder=' class='form-control')
-	div(type='button' class='btn btn-success btn-simple')Make Payment
+		input(id='payAmt' type='text' value=' placeholder=' class='form-control')
+	div(type='button' class='btn btn-success btn-simple' onclick='makePayment(' + parseInt($("#payAmt").text()) + ')') Make Payment
+	h4(id='paidText')

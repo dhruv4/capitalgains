@@ -1,3 +1,5 @@
+script(src='js/nessiepay.js')
+
 .navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
@@ -17,8 +19,8 @@
           li(class=title=='Manage'?'active':undefined)
             a(href='/manage') Manage
         else
-          li(class=title=='Money Owed')
-            p $#{user.totalowed} || $0
+          li(id='moneyOwed' class=title=='Money Owed')
+            p $ user.totalowed || $0
           li(class=title=='Manage'?'active':undefined)
             a(href='/newProject') i.fa.fa-plus New Project
 
