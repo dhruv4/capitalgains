@@ -181,6 +181,13 @@ app.post('/login', function(req, res, next){
            });
 });
 
+function sleep(ms)
+{
+    return(new Promise(function(resolve, reject) {
+        setTimeout(function() { resolve(); }, ms);
+    }));
+}
+
 
 app.get('/home', function(req, res){
     var email_ = req.session.email ;
@@ -193,17 +200,34 @@ app.get('/home', function(req, res){
             res.render('account/lender')
         } else {
 
-            projects = [];
+            var randomm = [];
 
-            user.projects.forEach(function(projectId){
-                console.log(projectId);
-                Project.getProject(function(err, proj){
-                    projects.push(proj);
-                }, projectId);
+            (user.projects).forEach(function(projectId){
+
+                Project.findOne({packageName : projectId}, function(err, proj){
+            		//assert.equal(null, err);
+
+                    //console.log(proj);
+                    randomm.push(proj);
+                    //console.log(randomm);
+
+
+
+            	});
+
             });
-            console.log(projects);
 
-            res.render('account/borrower', {user:user, projects:projects})
+            function blah(){
+                console.log(randomm);
+                res.render('account/borrower', {user:user, projects:randomm})
+            }
+
+            setTimeout(blah, 1000)
+
+
+
+
+
         }
     });
 });

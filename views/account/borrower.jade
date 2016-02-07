@@ -1,14 +1,14 @@
 extends ../layout
 
 block content
-	div(class='panel-group' id='accordian')
+	div(class='panel-group' id='accordion')
 		for proj in projects
 			div(class='panel-heading' data-toggle='modal' data-target='#myModal')
 				div
 					h4(class='panel-title' style='display:inline-block')
-						proj.name
+						proj.title
 					h5(class='panel-title' style='display:inline-block')
-						proj.mny
+						proj.money
 			div(class='panel-body')
 				proj.description
 		else
@@ -21,9 +21,9 @@ block content
 						button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
 							&times;
 						h2(class='modal-title' id='myModalLabel' style='display:inline-block')
-							project.name
+							project.title
 						h4(style='display:inline-block alignment:right')
-							project.mny
+							project.money
 					div(class='modal-body')
 						h6
 							project.description

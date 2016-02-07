@@ -14,10 +14,11 @@ var projectSchema = new mongoose.Schema({
 		dateLent: Date,
 		payments: [ {date: Date, amount: Number}],
 		packageName: String,
+		id: Number,
 		remaining: Number
 	});
 
-projectSchema.statics.addProject = function(ttle, bor, desc, mny, date, pkgName) {
+projectSchema.statics.addProject = function(ttle, bor, desc, mny, date, pkgName, iD) {
 
 	Project.create({
 		title : ttle,
@@ -30,6 +31,7 @@ projectSchema.statics.addProject = function(ttle, bor, desc, mny, date, pkgName)
 		dateLent : null,
 		payments : [],
 		packageName: pkgName,
+		id: iD,
 		remaining: mny
 	}, function(err, proj){
 		if(err) return handleError(err);
@@ -88,7 +90,7 @@ projectSchema.methods.queryAmountOwed = function(db, callback, id, amount, date)
 projectSchema.statics.getProject = function(callback, id){
 
 	Project.findOne({_id : id}, function(err, proj){
-		//assert.equal(null, err);
+		assert.equal(null, err);
 		callback(err, proj);
 	});
 };
@@ -96,5 +98,5 @@ projectSchema.statics.getProject = function(callback, id){
 Project  = mongoose.model('Project', projectSchema);
 
 
-Project.addProject("Weed", "pandit.rohan@gmail.com", "Selling pot to poor kids",
-    5000, new Date(), "2");
+Project.addProject("Lemonade", "pandit.rohan@gmail.com", "Selling lemonade to poor kids",
+    5000, new Date(), "2", 2);
