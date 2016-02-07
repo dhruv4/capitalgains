@@ -88,7 +88,7 @@ projectSchema.methods.queryAmountOwed = function(db, callback, id, amount, date)
 projectSchema.statics.getProject = function(callback, id){
 
 	Project.findOne({_id : id}, function(err, proj){
-		assert.equal(null, err);
+		//assert.equal(null, err);
 		callback(err, proj);
 	});
 };
@@ -97,4 +97,4 @@ Project  = mongoose.model('Project', projectSchema);
 
 
 Project.addProject("Weed", "pandit.rohan@gmail.com", "Selling pot to poor kids",
-    5000, new Date(), "1");
+    5000, new Date(), "2");

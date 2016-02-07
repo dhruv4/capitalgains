@@ -50,7 +50,7 @@ userSchema.pre('save', function(next) {
 
 userSchema.statics.addProject = function(email, id){
 
-    Project.update(
+    this.update(
         {email : email},
         {$push: {projects : id}},
         function(err, results){
@@ -89,7 +89,7 @@ userSchema.methods.gravatar = function(size) {
 sUser = mongoose.model('sUser', userSchema);
 
 
-sUser.addProject("pandit.rohan@gmail.com", 1);
+sUser.addProject("pandit.rohan@gmail.com", 2);
 
 
 //userSchema.methods.setName = function(name) { }

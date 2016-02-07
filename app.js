@@ -196,8 +196,9 @@ app.get('/home', function(req, res){
             projects = [];
 
             user.projects.forEach(function(projectId){
+                console.log(projectId);
                 Project.getProject(function(err, proj){
-                    projects.append(proj);
+                    projects.push(proj);
                 }, projectId);
             });
             console.log(projects);
