@@ -38,7 +38,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
   });
 }));
 
-
 /**
  * Login Required middleware.
  */
