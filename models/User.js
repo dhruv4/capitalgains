@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
   password: String,
   linkedin: String,
   bank: String,
-  projects: {Array, default:[]}
+  projects: [Number]
 });
 
 /**
