@@ -1,0 +1,6 @@
+goal: key by user ID
+
+when user created:
+assign ID randomly
+
+
