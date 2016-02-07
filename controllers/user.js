@@ -239,6 +239,7 @@ exports.postSignup = function(req, res, next) {
                 req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
                 return res.redirect('/forgot');
             }
+
             res.render('account/reset', {
                 title: 'Password Reset'
             });

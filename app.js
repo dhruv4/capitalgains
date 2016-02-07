@@ -47,23 +47,6 @@ var passportConf = require('./config/passport');
 var app = express();
 
 /**
- * Connect to MongoDB.
- */
- var MongoClient = require('mongodb').MongoClient;
- var mongodbUrl = "mongodb://localhost:27017/myproject";
-
- MongoClient.connect(mongodbUrl, function(err, db){
- 		var collection = db.collection("users");
-
- 		collection.insert({
- 							username : "mary",
- 							password : "chocolate"
- 						});
-
- 		db.close();
- 	})
-
-/**
  * Express configuration.
  */
 app.set('port', process.env.PORT || 3000);

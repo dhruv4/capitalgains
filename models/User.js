@@ -6,17 +6,8 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   linkedin: String,
-
-  /*profile: {
-    name: { type: String, default: '' },
-    gender: { type: String, default: '' },
-    location: { type: String, default: '' },
-    website: { type: String, default: '' },
-    picture: { type: String, default: '' }
-    },*/
-
   bank: String,
-  projects: [ {id: Number} ],
+  projects: {Array, default:[]}
 });
 
 /**
