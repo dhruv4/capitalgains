@@ -2,7 +2,7 @@ define('transfer', function (require) {
     "use strict";
  	var Config = require('capital_one');
 
-    var Withdrawal = {
+    var Transfer = {
 		initWithKey: function(apiKey) {
 			Config.setApiKey(apiKey);
 			return this;
@@ -70,17 +70,17 @@ define('transfer', function (require) {
 		  #		}
 		  # @Returns http response code
 		**/
-		createTransfer: function(toAcc, json) {
+		createTransfer: function(fromAcc, json) {
 			var respCode;
 			var request = $.ajax({
-					url: this.urlWithAccountEntity()+toAcc+'/transfers?key='+this.apiKey(),
+					url: this.urlWithAccountEntity()+fromAcc+'/transfers?key='+this.apiKey(),
 					data: json,
 					contentType: 'application/json',
 					async: false,
 					type: 'POST'
 				});
 			request.complete(function(jqXHR, textStatus) {
-				respCode = jqXHR.status;
+				respCode = jqXHR;
 			});
 			return respCode;
 		},

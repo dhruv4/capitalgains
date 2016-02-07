@@ -1,0 +1,19 @@
+//practiceWithNessie.html
+
+<script data-main="capital_one" src="require-jquery.js"></script>
+
+<script type="text/javascript">
+
+	$(function(){
+    require(['account'], function (account) {
+        var apikey = '08b829d8ee15d7a3a754d3ae8e241b49';
+        accountDemo(apikey, account);
+        });
+	});
+	function accountDemo (apikey, account) {
+	    console.log('Account Demo');
+	    var custAccount = account.initWithKey(apikey);
+	    console.log("[Account - Get All] : Sample Account Nickname: (" + custAccount.getAll()[0].nickname + ")");
+	}
+
+</script>

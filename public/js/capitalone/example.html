@@ -4,6 +4,7 @@
  * Created on: May 1, 2015
  */
 // -->
+<!DOCTYPE html>
 <html>
 	<head>
 		
@@ -13,9 +14,11 @@
 		<script>
 			$(function(){
 
-				require(['account', 'atm', 'branch', 'customer', 'deposit', 'withdrawal', 'bills', 'merchant', 'purchase'], function (account, atm, branch, customer, deposit, withdrawal, bills, merchant, purchase) {
+				require(['account', 'atm', 'branch', 'customer', 'deposit', 'withdrawal', 'bills', 'merchant', 'purchase', 'transfer'], function (account, atm, branch, customer, deposit, withdrawal, bills, merchant, purchase, transfer) {
 
-					var apikey = '40eba2d0de86d07544dbdb0abe28db05';
+					var apikey = '08b829d8ee15d7a3a754d3ae8e241b49';
+					transferDemo(apikey, transfer);
+					/*
 					accountDemo(apikey, account); // !!! Verified !!!
 					atmDemo(apikey, atm); // !!! Verified !!!
 					branchDemo(apikey, branch); // !!! Verified !!!
@@ -25,9 +28,32 @@
 					billsDemo(apikey, bills); // !!! Verified !!!	
 					merchantDemo(apikey, merchant); // !!! Verified !!!	
 					purchaseDemo(apikey, purchase); // No Purchases for existing accounts
+					*/
 				});
 			});
 
+
+		function transferDemo (apikey, transfer) {
+			console.log('transfer Demo');
+			var transferAccount = transfer.initWithKey(apikey);
+			var accID = '56241a13de4bf40b171128b6';
+			var payeeID = '56241a13de4bf40b171128b7';
+			var transferID = '56b7152887dcc0100021c042';
+			var sampleTransfer = "{\"medium\": \"balance\",\"amount\": 1000,\"description\": \"test\", \"payee_id\": \"" + payeeID + "\" }";
+			var sampleTransferUpdate = '{ "medium": "balance", "amount": 52000, "description": "update" }';
+			
+			console.log("[transfer - make a transfer from an account] Response: "+ transferAccount.createTransfer(accID, sampleTransfer));
+			console.log(transferAccount.createTransfer(accID, sampleTransfer));
+			console.log(transferAccount.getAllByAccountId(accID));
+			/*
+			console.log("[transfer - get transfers by account] Response: "+ transferAccount.getAllByAccountId(accID));
+			console.log("[transfer - get transfers by id] Response: " + transferAccount.getTransferById(transferID));
+			
+			var lastAcct = transferAccount.getAllByAccountId(accID).pop();
+			console.log("[transfer - update transfer] Response: " + transferAccount.updateTransferById('56b7152887dcc0100021c042', sampleTransferUpdate));
+			//console.log("[withdrawal - delete withdrawal] Response: " + withdrawalAccount.deleteWithdrawals('56019011ce1cef140015e4a1'));
+			*/
+		}
 
 		function purchaseDemo (apikey, purchase) {
 			console.log('purchase Demo');
