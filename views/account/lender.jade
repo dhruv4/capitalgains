@@ -23,12 +23,14 @@ block content
 						h2(class='modal-title' id='myModalLabel' style='display:inline-block')
 							project.name
 						h4(style='display:inline-block alignment:right')
-							$: project.mny
+							Money Left $: project.mny
 					div(class='modal-body')
 						h6
 							project.description
+						a(href="#")
+							User Profile
 					div(class='modal-footer')
-						a(href='#' class='btn btn-success btn-simple')
-							Pay Back
 						button(type='button' class='btn btn-default btn-simple' data-dismiss='modal')
-							Cancel
+							Nudge
+						button(type='button' class='btn btn-default btn-simple' data-dismiss='modal')
+							Exit

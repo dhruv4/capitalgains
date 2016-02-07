@@ -37,3 +37,39 @@
             li.divider
             li
               a(href='/logout') Logout
+
+div(class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
+  div(class='modal-dialog')
+    div(class='modal-header')
+      button(type='button' class='close' data-dismiss='modal' aria-hidden='true')&times;
+      h2(class='modal-title' id='myModalTitle') New Project
+    div(class='modal-body')
+      div(class='col-sm-3')
+        h6(style='display:inline-block')Title:
+        div(class='form-group' style='display:inline-block')
+          input(type='text' value=' placeholder=' class='form-control')
+      div(class='col-sm-3')
+        h6(style='display:inline-block')Description:
+        div(class='form-group' style='display:inline-block')
+          input(type='text' value=' placeholder=' class='form-control')
+      div(class='col-sm-3')
+        h6(style='display:inline-block')Loan Package:
+        div(class='btn-group' style='display:inline-block')
+          button(type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+            $100 with 5% APR
+            span(class='caret')
+          ul(class='dropdown-menu')
+            li
+              a(href='#')$100 with 5% APR
+            li
+              a(href='#')$200 with 7% APR
+            li
+              a(href='#')$300 with 9% APR
+            li
+              a(href='#')$400 with 11% APR
+    div(class='modal-footer')
+      button(type='button' class='btn btn-success btn-simple')Submit
+      button(type='button' class='btn btn-default btn-simple' data-dismiss='modal')Cancel
+
+
+

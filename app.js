@@ -197,9 +197,9 @@ app.get('/home', function(req, res){
     sUser.findOne({email : email_}, function(err, user){
 
         if(user.lender){
-            res.render('lender')
+            res.render('account/lender')
         } else {
-            res.render('borrower')
+            res.render('account/borrower')
         }
     });
 });
