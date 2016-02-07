@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+	div(class='panel-group' id='accordian')
+		for proj in projects
+			div(class='panel-heading' data-toggle='modal' data-target='#myModal')
+				div
+					h4(class='panel-title' style='display:inline-block')
+						proj.name
+					h5(class='panel-title' style='display:inline-block')
+						proj.mny
+			div(class='panel-body')
+				proj.description
+		else
+			li No projects!
+
+		div(class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
+			div(class='modal-dialog')
+				div(class='modal-content')
+					div(class='modal-header')
+						button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
+							&times;
+						h2(class='modal-title' id='myModalLabel' style='display:inline-block')
+							project.name
+						h4(style='display:inline-block alignment:right')
+							Money Left $: project.mny
+					div(class='modal-body')
+						h6
+							project.description
+						a(href="#")
+							User Profile
+					div(class='modal-footer')
+						button(type='button' class='btn btn-default btn-simple' data-dismiss='modal')
+							Nudge
+						button(type='button' class='btn btn-default btn-simple' data-dismiss='modal')
+							Exit

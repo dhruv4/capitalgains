@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+	h3
+		Make Payment
+	h4
+		project.name
+	div(class='col-sm-3')
+		h6(style='display:inline-block')Payment Amount
+		div(class='form-group' style='display:inline-block')
+		input(id='payAmt' type='text' value=' placeholder=' class='form-control')
+	div(type='button' class='btn btn-success btn-simple' onclick='makePayment(' + parseInt($("#payAmt").text()) + ')') Make Payment
+	h4(id='paidText')
