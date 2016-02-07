@@ -37,17 +37,29 @@ exports.postLogin = function(req, res, next) {
     MongoClient.connect(mongodbUrl, function(err, db){
            var collection = db.collection("users");
 
-           if(collection.find(
-                    {email: req.body.email,
-                    password: req.body.password}
-                ).count() > 0){
-               req.flash('success', { msg: 'Success! You are logged in.' });
-               res.redirect('/home');
-           } else {
-               req.flash('errors', { msg: 'Incorrect email/password'});
-               res.redirect('/login')
-           }
-           db.close();
+           console.log({email: req.body.email, password: req.body.password});
+
+           collection.find({
+                            email: req.body.email,
+                            password: req.body.password
+                            }).count( function(err, count){
+
+                                console.log(count);
+
+                                if(count > 0){
+                                    req.flash('success', { msg: 'Success! You are logged in.' });
+                                    res.redirect('/home');
+                                }
+
+                                else {
+                                    req.flash('errors', { msg: 'Incorrect email/password'});
+                                    res.redirect('/login')
+                                }
+
+                                db.close();
+                            }
+                        );
+
 
        });
 
