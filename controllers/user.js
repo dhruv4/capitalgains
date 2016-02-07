@@ -9,6 +9,7 @@ var mongodbUrl = "mongodb://localhost:27017/hack";
 var session = require('express-session');
 var express = require('express');
 var MongoStore = require('connect-mongo/es5')(session);
+var mongoose = require('mongoose');
 
 var app = express();
 app.use(session({
@@ -20,6 +21,17 @@ app.use(session({
     autoReconnect: true
   })
 }));
+
+var userSchema = new mongoose.Schema({
+    email: {type: String, unique: true, lowercase: true},
+    password : String,
+    name : String,
+    lender : Boolean,
+    borrower : Boolean,
+    bank : String,
+    projects : [Number]
+});
+var sUser = mongoose.model('sUser', userSchema);
 
 /**
 * GET /login
@@ -125,7 +137,7 @@ exports.postSignup = function(req, res, next) {
     var lender_ = true ? req.body.lender == 'on' : false;
     var borrower_ = true ? req.body.borrower == 'on' : false;
 
-    var user = {
+    var user = new sUser({
         email: req.body.email,
         password: req.body.password,
         name: req.body.name,
@@ -133,16 +145,13 @@ exports.postSignup = function(req, res, next) {
         borrower:  borrower_,
         bank: req.body.bank,
         projects: []
-    };
+    });
 
     console.log(user);
 
-    MongoClient.connect(mongodbUrl, function(err, db){
-           var collection = db.collection("users");
-           collection.insert(user);
-
-           db.close();
-       })
+    user.save(function(err){
+        if(err) return handleError(err);
+    });
 
     res.redirect('/login');
 
