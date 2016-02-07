@@ -8,33 +8,32 @@
         span.icon-bar
       a.navbar-brand(href='/')
         i.fa.fa-cube
-        | Project name
+        | Capital Gains
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=title=='Home'?'active':undefined)
-          a(href='/') Home
-        li(class=title=='API Examples'?'active':undefined)
-          a(href='/api') API Examples
-        li(class=title=='Contact'?'active':undefined)
-          a(href='/contact') Contact
-      ul.nav.navbar-nav.navbar-right
-        if !user
-          li(class=title=='Login'?'active':undefined)
-            a(href='/login') Login
-          li(class=title=='Create Account'?'active':undefined)
-            a(href='/signup') Create Account
+        if !borrower
+          li(class=title=='Discover'?'active':undefined)
+            a(href='/discover') Discover
+          li(class=title=='Manage'?'active':undefined)
+            a(href='/manage') Manage
         else
-          li.dropdown(class=title=='Account Management'?'active':undefined)
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src='#{user.profile.picture}')
-              else
-                img(src='#{user.gravatar(60)}')
-              | #{user.profile.name || user.email || user.id}&nbsp;
-              i.caret
-            ul.dropdown-menu
-              li
-                a(href='/account') My Account
-              li.divider
-              li
-                a(href='/logout') Logout
+          li(class=title=='Money Owed')
+            p $#{user.totalowed} || $0
+          li(class=title=='Manage'?'active':undefined)
+            a(href='/newProject') i.fa.fa-plus New Project
+
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown(class=title=='Account Management'?'active':undefined)
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            if user.profile.picture
+              img(src='#{user.profile.picture}')
+            else
+              img(src='#{user.gravatar(60)}')
+            | #{user.profile.name || user.email || user.id}&nbsp;
+            i.caret
+          ul.dropdown-menu
+            li
+              a(href='/account') My Account
+            li.divider
+            li
+              a(href='/logout') Logout
