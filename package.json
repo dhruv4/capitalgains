@@ -1,0 +1,19 @@
+{
+  "name": "capitalgains",
+  "version": "1.0.0",
+  "description": "Microfinancing for students!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhruv4/capitalgains.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhruv4/capitalgains/issues"
+  },
+  "homepage": "https://github.com/dhruv4/capitalgains#readme"
+}
